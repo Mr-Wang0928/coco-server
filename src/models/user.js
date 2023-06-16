@@ -34,4 +34,5 @@ const UserSchema = new Schema()
     Model 代表的是数据库中的集合，通过Model才能对数据库进行操作
     第一个参数要映射的集合名；第二个创建的约束（Schema对象）
 */
-module.exports = User = mongoose.model('user',UserSchema);
+const User = mongoose.model('user',UserSchema);
+export default User

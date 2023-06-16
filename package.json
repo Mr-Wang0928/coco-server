@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "dev": "nodemon --exec babel-node ./bin/www",
+    "start": "node app"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,5 +15,10 @@
     "mongoose": "^7.2.4",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-stage-3": "^7.8.3"
   }
 }
