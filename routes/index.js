@@ -3,14 +3,22 @@ var express = require('express');
 var router = express.Router();
 import User from '../src/models/user.js'
 
-console.log("aaaa",resultSuccess({name:"tom"})); 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-router.get('/login', function(req, res, next) {
-    res.render('index', { title: 'Express' });
-  });
+router.post('/logins', async function(req, res, next) {
+    const { username, password } = req.body
+    console.log("username",username);
+    if (!username || !password) res.send(resultError('用户名或密码有误'))
+
+    const findres = await User.findOne({username,password}).select('-password -_v')
+    if(!findres){
+        res.send(resultError({},{message:'用户名或密码有误'}))
+    }else{
+        res.send(resultSuccess(findres))
+    }
+});
 router.post('/register', async function(req, res, next) {
     const { username, password } = req.body
 
@@ -21,12 +29,13 @@ router.post('/register', async function(req, res, next) {
     const resCount = await User.count({username})
     console.log("resCount",resCount);
     if(resCount){
-        return next({
-            message: '用户名已被注册',
-            code: 1,
-        })
+        res.send(resultError('此用户名已被注册,请更换用户名'))
+    }else{
+        const userModel = new User({username,password})
+        const saveRes = await userModel.save();
+        console.log("saveRes",saveRes);
+        res.send(resultSuccess())
     }
-    next()
 });
 router.get('/logout', function(req, res, next) {
     res.render('index', { title: 'Express' });

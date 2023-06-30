@@ -14,7 +14,8 @@
 // export const test  = {
 
 // }
-export function resultSuccess(result, { message = 'ok' } = {}) {
+export function resultSuccess(result, message = 'ok') {
+    
   return {
     code: ResultEnum.SUCCESS,
     result,

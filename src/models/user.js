@@ -1,34 +1,38 @@
+import dayjs from "dayjs"
 // 操作数据库字段配置
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
  
 // Create Schema(创建字段)
-const UserSchema = new Schema()
-// const UserSchema = new Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     age: {
-//         type: Number,
-//         required: true
-//     },
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     avatar: {
-//         type: String
-//     },
-//     password: {
-//         type: String,
-//         required: true
-//     },
-//     date: {
-//         type: Date,
-//         default:Date.now(), //返回创建时间戳
-//     },
-// })
+// const UserSchema = new Schema()
+const UserSchema = new Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role:{
+        type: String,
+        default:'user', //返回创建时间戳
+    },
+    age: {
+        type: Number,
+    },
+    email: {
+        type: String,
+    },
+    avatar: {
+        type: String
+    },
+    date: {
+        type: Date,
+        default:dayjs().format('YYYY-MM-DD HH:mm:ss'), //返回创建时间戳
+    },
+})
  
 /* 
     Model 代表的是数据库中的集合，通过Model才能对数据库进行操作
